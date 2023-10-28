@@ -1,0 +1,256 @@
+<body>
+  
+<div>
+  <div>
+<!-- <mat-panel-title class="content-title mb-3"><b>Xml Form</b></mat-panel-title>? -->
+<H1>XML File</H1>
+</div>
+
+<div fxLayout="column" style="height: 100%">
+<!-- file upload -->
+
+<div fxFlex="1">
+  
+<ng-container >
+  <div class="row">
+    <div class="col-8">
+      <label class="btn btn-default p-1">
+        <input type="file" accept=".xml,.pdf" (change)="selectFile($event)" />
+      </label>
+    </div>
+  
+    <div class="col-4">
+      <button class="btn btn-success btn-sm" [disabled]="!selectedFiles" (click)="upload()">
+        Upload
+      </button>
+    </div>
+  </div>
+  
+  <div *ngIf="message" class="alert alert-secondary" role="alert">{{ message }}</div>
+</ng-container>
+</div>
+
+
+<!-- table  -->
+<H1>XML Table</H1>
+<div >
+<ng-container >
+  <div class="table-wrapper">
+
+    <div class="gridTable ">
+  <table mat-table [dataSource]="dataSource">
+    
+    <ng-container matColumnDef="receipt_no">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Receipt No </th>
+      <td mat-cell *matCellDef="let tag"> {{tag.id}} </td>
+    </ng-container>
+  
+  
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name  </th>
+      <td mat-cell *matCellDef="let tag"> {{tag.name}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="bank_name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> BankName </th>
+      <td mat-cell *matCellDef="let tag"> {{tag.bank_name}} </td>
+    </ng-container>
+  
+   
+  
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+      <td mat-cell *matCellDef="let tag">{{ tag.date | date: 'dd MMMM yyyy' }} </td>
+    </ng-container>
+  
+  
+    <ng-container matColumnDef="time">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Time </th>
+      <td mat-cell *matCellDef="let tag"> {{tag.time}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
+      <td mat-cell *matCellDef="let tag"> {{tag.amount}} </td>
+    </ng-container>
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> city </th>
+      <td mat-cell *matCellDef="let tag"> {{tag.city}} </td>
+    </ng-container>
+    <ng-container matColumnDef="state">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> state </th>
+      <td mat-cell *matCellDef="let tag"> {{tag.state}} </td>
+    </ng-container>
+    <ng-container matColumnDef="country">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> country </th>
+      <td mat-cell *matCellDef="let tag"> {{tag.country}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Action">
+      <th mat-header-cell *matHeaderCellDef>
+        Action
+      </th>
+      <td mat-cell *matCellDef="let tag; let i = index;" class="nw">
+        <button   class="action-button mt-2 mb-2 mr-2 static-pos" mat-icon-button
+    matTooltip="View" (click)="onViewClick(tag)">
+    View
+  </button>
+  <button   class="action-button mt-2 mb-2 mr-2 static-pos" mat-icon-button
+    matTooltip="edit" (click)="Edit(tag)">
+    Edit
+  </button>
+  <button class="action-button mt-2 mb-2 mr-2 static-pos" mat-icon-button
+  matTooltip="PDF"(click)="downloadPdf(tag)">Export to PDF</button>
+        
+      </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+</div>
+  </ng-container>
+</div>
+
+
+
+</div>
+
+<div>
+
+
+</div>
+  <!-- form view edit update -->
+
+  <ng-container>
+    <h1>XML Form</h1>
+    <form class="form" [formGroup]="XmlForm" autocomplete="off">
+      <div *ngIf="isUpdated" class="alert alert-success">
+        Table data updated successfully!
+      </div>
+      <mat-label>Receipt No. <span class="mandatoryFields">*</span></mat-label>
+      <input
+        formControlName="ReceiptNo"
+        label="ReceiptNo"
+        matInput
+        name="ReceiptNo"
+        type="number"
+        autocomplete="off"
+        oninput="this.value=this.value.slice(0,this.maxLength)"
+        maxlength="100"
+        min="0"
+      
+      />
+      <mat-error *ngIf="XmlForm.controls['ReceiptNo'].invalid && XmlForm.controls['ReceiptNo'].touched">
+        Please enter a valid Receipt No.
+      </mat-error>
+  
+      <mat-label>Name <span class="mandatoryFields">*</span></mat-label>
+      <input
+        formControlName="Name"
+        label="Name"
+        matInput
+        name="Name"
+        type="text"
+        autocomplete="off"
+        oninput="this.value=this.value.slice(0,this.maxLength)"
+        maxlength="100"
+        min="0"
+      />
+      <mat-error *ngIf="XmlForm.controls['Name'].invalid && XmlForm.controls['Name'].touched">
+        Please enter a valid Name.
+      </mat-error>
+
+      <mat-label>Bank Name <span class="mandatoryFields">*</span></mat-label>
+      <input
+        formControlName="BankName"
+        label="BankName"
+        matInput
+        name="BankName"
+        type="string"
+        autocomplete="off"
+        maxlength="100"
+        min="0"
+      />
+      <mat-error *ngIf="XmlForm.controls['BankName'].invalid && XmlForm.controls['BankName'].touched">
+        Please enter a valid Bank Name.
+      </mat-error>
+  
+      <mat-label>Location <span class="mandatoryFields">*</span></mat-label>
+      <input
+        formControlName="Location"
+        label="Location"
+        matInput
+        name="Location"
+        type="string"
+        autocomplete="off"
+        oninput="this.value=this.value.slice(0,this.maxLength)"
+        maxlength="100"
+        min="0"
+      />
+      <mat-error *ngIf="XmlForm.controls['Location'].invalid && XmlForm.controls['Location'].touched">
+        Please enter a valid Location.
+      </mat-error>
+  
+      <mat-label>Date <span class="mandatoryFields">*</span></mat-label>
+      <input
+        (click)="datePicker.open()"
+        [matDatepicker]="datePicker"
+        readonly="true"
+        autocomplete="off"
+        formControlName="date"
+        matInput
+        name="Date"
+      />
+      <!-- <mat-datepicker-toggle [for]="datePicker"matIconSufix></mat-datepicker-toggle> -->
+      <mat-datepicker #datePicker></mat-datepicker>
+      <mat-error *ngIf="XmlForm.controls['date'].invalid && XmlForm.controls['date'].touched">
+        Please select a valid Date.
+      </mat-error>
+  
+      <mat-label>Time <span class="mandatoryFields">*</span></mat-label>
+      <input
+        formControlName="Time"
+        label="Time"
+        matInput
+        name="Time"
+        type="time"
+        autocomplete="off"
+        oninput="this.value=this.value.slice(0,this.maxLength)"
+        maxlength="100"
+        min="0"
+      />
+      <mat-error *ngIf="XmlForm.controls['Time'].invalid && XmlForm.controls['Time'].touched">
+        Please enter a valid Time. </mat-error>
+  
+  
+      <mat-label>Amount <span class="mandatoryFields">*</span></mat-label>
+      <input
+        formControlName="Amount"
+        label="Amount"
+        matInput
+        name="Amount"
+        type="number"
+        autocomplete="off"
+        oninput="this.value=this.value.slice(0,this.maxLength)"
+        maxlength="100"
+        min="0"
+      />
+      <mat-error *ngIf="XmlForm.controls['Amount'].invalid && XmlForm.controls['Amount'].touched">
+        Please select a valid Amount.
+      </mat-error>
+      
+      <button
+        mat-raised-button
+        class="red-button mr-3"
+        *ngIf="XmlForm && XmlForm.valid && updatebutton"
+        (click)="updateXmldata(XmlForm.value)"
+      >
+        update
+      </button>
+    
+    </form>
+  </ng-container>
+  
+ </div>
+</body>

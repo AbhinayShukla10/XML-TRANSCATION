@@ -1,0 +1,75 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Center the form container horizontally */
+.side-box {
+    margin: 0 auto;
+    max-width: 600px;
+  }
+  
+  /* Add some space between form fields */
+  .mat-form-field {
+    margin-bottom: 20px;
+  }
+  
+  /* Make required field label red */
+  .mat-form-field .mandatoryFields {
+    color: red;
+  }
+  
+  /* Make submit button red and center it */
+  button[type="submit"] {
+    display: block;
+    margin: 0 auto;
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* Style form inputs */
+  input[type="text"],
+  input[type="number"],
+  input[type="time"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+  }
+  
+  /* Remove default number input arrows */
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  
+  /* Style form labels */
+  .mat-form-field-label {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  /* Style form error messages */
+  .mat-form-field-invalid .mat-form-field-wrapper {
+    border-color: red;
+  }
+  
+  .mat-form-field-invalid .mat-form-field-label {
+    color: red;
+  }
+  
+  .mat-form-field-invalid .mat-form-field-underline {
+    background-color: red;
+  }
+  .form{
+    width:50%;
+  }
